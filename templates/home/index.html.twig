@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}home{% endblock %}
+
+{% block stylesheets %}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.6/fullcalendar.min.css">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link href="{{ asset('style.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+
+<div id='wrap'>
+      <div class = 'col-10 main-div'>
+        <div class="row mt-3 mb-3">
+          <div class="col-md-6">
+            <div class="mb-6 text-center card">
+              <div class="card-body"><h5 class="card-title">NBR MISSION AUJOURD'HUI</h5>
+                <h4>1,7</h4>
+              </div>
+            </div>
+          </div>
+            <div class="col-md-6">
+            <div class="mb-6 text-center card">
+              <div class="card-body"><h5 class="card-title">NBR MISSION A VENIR</h5>
+                <h4>1,7</h4>
+              </div>
+            </div>
+          </div>                                                 
+        </div>
+        <div id='calendar-planification' class='card p-3'></div>
+      </div>
+      <div class = 'darg-event card col-2 mt-3'>
+        <div id='external-events' class="external-events">
+          <div id='external-events-listing'>
+            <h4>Moto</h4>
+            <div class='scroll-event'>
+            {% for m in motos %}
+              <div class='fc-event'>{{ m.name }}</div>
+            {% endfor %}
+            </div>
+          </div>
+          <p>
+            <input type='checkbox' id='drop-remove' checked='checked' />
+            <label for='drop-remove'>remove after drop</label>
+          </p>
+        </div>
+        <div id='external-events1' class="external-events">
+          <div id='external-events-listing1'>
+            <h4>Adresse</h4>
+            <div class='scroll-event'>
+            {% for a in adresses %}
+              <div class='fc-event'>{{ a.name }}</div>
+            {% endfor %}
+            </div>
+          </div>
+          <p>
+            <input type='checkbox' id='drop-remove' checked='checked' />
+            <label for='drop-remove'>remove after drop</label>
+          </p>
+        </div>
+        <div id='external-events2' class="external-events">
+          <div id='external-events-listing2'>
+            <h4>Livreur</h4>
+            <div class='scroll-event'>
+            {% for l in livreurs %}
+              <div class='fc-event'>{{ l.name }}</div>
+            {% endfor %}
+            </div>
+          </div>
+          <p>
+            <input type='checkbox' id='drop-remove' checked='checked' />
+            <label for='drop-remove'>remove after drop</label>
+          </p>
+        </div>
+      </div>
+      <div style='clear:both'></div>
+
+</div>
+<div class='pl-3'>
+  <div class="col mb-5 mt-3 card">
+    <div class="card-body"><h5 class="card-title">Dernier Mission Rajouté</h5>
+      <table class="mb-0 table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date de mission</th>
+            <th>Livreur</th>
+            <th>Adresse</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('assets/scripts/calendar.js') }}"></script>
+{% endblock %}
