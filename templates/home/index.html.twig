@@ -10,6 +10,12 @@
 
 {% block body %}
 
+
+{% for message in app.flashes('success') %}
+  <div class="alert alert-success">
+    {{ message }}
+  </div>
+{% endfor %}
 <button id = 'btn-valid-calendar' class="btn-wide mb-2 mr-2 btn-icon btn btn-primary float-right">
   <i class="pe-7s-note btn-icon-wrapper"> </i>
   Valider

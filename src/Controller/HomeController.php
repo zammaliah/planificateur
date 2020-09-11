@@ -101,7 +101,7 @@ class HomeController extends AbstractController
         $moto_add = array_values($request->request->get('moto_add',[]));
         $adresse_add = array_values($request->request->get('adresse_add',[]));
         $livreur_add = array_values($request->request->get('livreur_add',[]));
-        $list_delete = array_values($request->request->get('delete'));
+        $list_delete = array_values($request->request->get('delete',[]));
         
         //add new events
         foreach($moto_add as $m){
@@ -144,6 +144,7 @@ class HomeController extends AbstractController
         $response=new Response();
         $response->setContent(json_encode(['success']));
         $response->headers->set('Content-Type', 'application/json');
+        $this->addFlash('success', 'Votre Calendrier à été bien à jour' );
         return $response;
     }
 

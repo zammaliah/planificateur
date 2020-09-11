@@ -129,7 +129,11 @@ $(function() {
             method: "POST",
             data: { delete : array_event_delete, moto_add : array_moto_add, adresse_add : array_adresse_add, livreur_add : array_livreur_add},
             success : function(data){
-                console.log(data)
+                if(data[0] === "success"){
+                    location.reload();
+                }else{
+                    alert('Problème quelque part !!!');
+                };
             }
             
         });
