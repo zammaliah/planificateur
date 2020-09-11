@@ -12,7 +12,6 @@ body {
 }
     
 .external-events {
-    /**/
     float: left;
     width: 200px;
     height: 293px;
@@ -24,7 +23,6 @@ body {
 
 }
 .scroll-event{
-
     overflow-y: scroll;
     height: 193px;
 }

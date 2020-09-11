@@ -10,34 +10,41 @@
 
 {% block body %}
 
-
+<button id = 'btn-valid-calendar' class="btn-wide mb-2 mr-2 btn-icon btn btn-primary float-right">
+  <i class="pe-7s-note btn-icon-wrapper"> </i>
+  Valider
+</button>
 <div id='wrap'>
       <div class = 'col-10 main-div'>
         <div class="row mt-3 mb-3">
           <div class="col-md-6">
             <div class="mb-6 text-center card">
-              <div class="card-body"><h5 class="card-title">NBR MISSION AUJOURD'HUI</h5>
-                <h4>1,7</h4>
+              <div class="card-body">
+                <h5 class="card-title">NBR MISSION AUJOURD'HUI</h5>
+                <h4>{{ nbrLivraisonToday }}</h4>
               </div>
             </div>
           </div>
             <div class="col-md-6">
             <div class="mb-6 text-center card">
               <div class="card-body"><h5 class="card-title">NBR MISSION A VENIR</h5>
-                <h4>1,7</h4>
+                <h4>{{ nbrLivraisonSupToday }}</h4>
               </div>
             </div>
           </div>                                                 
         </div>
         <div id='calendar-planification' class='card p-3'></div>
       </div>
-      <div class = 'darg-event card col-2 mt-3'>
+      <div class = 'darg-event card col-2 mt-3' id="list-event">
+        
         <div id='external-events' class="external-events">
           <div id='external-events-listing'>
             <h4>Moto</h4>
-            <div class='scroll-event'>
+            <div class='scroll-event' id="moto-scroll">
+            {% set i = 1 %}
             {% for m in motos %}
-              <div class='fc-event'>{{ m.name }}</div>
+              <div class='fc-event' id = '{{"moto_" ~ i }}'>{{ m.name }}</div>
+              {% set i = i+1 %}
             {% endfor %}
             </div>
           </div>
@@ -49,9 +56,11 @@
         <div id='external-events1' class="external-events">
           <div id='external-events-listing1'>
             <h4>Adresse</h4>
-            <div class='scroll-event'>
+            <div class='scroll-event' id="adresse-scroll">
+            {% set i = 1 %}
             {% for a in adresses %}
-              <div class='fc-event'>{{ a.name }}</div>
+              <div class='fc-event'  id = '{{"adresse_" ~ i }}'>{{ a.name }}</div>
+              {% set i = i+1 %}
             {% endfor %}
             </div>
           </div>
@@ -63,9 +72,11 @@
         <div id='external-events2' class="external-events">
           <div id='external-events-listing2'>
             <h4>Livreur</h4>
-            <div class='scroll-event'>
+            <div class='scroll-event'  id='livreur-scroll'>
+            {% set i = 1 %}
             {% for l in livreurs %}
-              <div class='fc-event'>{{ l.name }}</div>
+              <div class='fc-event'  id = '{{"livreur_" ~ i }}'>{{ l.name }}</div>
+              {% set i = i+1 %}
             {% endfor %}
             </div>
           </div>
@@ -92,20 +103,18 @@
           </tr>
         </thead>
         <tbody>
+        {% for lastTen in lastTens %}
           <tr>
-            <th scope="row">1</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <th scope="row"> {{lastTen.id}} </th>
+            <td> {{lastTen.date | date('Y-m-d')}} </td>
+            <td> {{lastTen.livreur.name}} </td>
+            <td> {{lastTen.adresse.name}} </td>
+            <td>
+              <button class="mb-2 mr-2 btn btn-primary">Options</button>
+              <button class="mb-2 mr-2 btn btn-secondary">Details</button>
+            </td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
@@ -114,5 +123,9 @@
 {% endblock %}
 
 {% block javascripts %}
+<script>
+  var planifications = "{{ path('events') }}";
+  var validate = "{{ path('validate') }}"
+</script>
 <script type="text/javascript" src="{{ asset('assets/scripts/calendar.js') }}"></script>
 {% endblock %}

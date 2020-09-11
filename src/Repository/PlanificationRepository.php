@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Planification;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,51 @@ class PlanificationRepository extends ServiceEntityRepository
         parent::__construct($registry, Planification::class);
     }
 
-    // /**
-    //  * @return Planification[] Returns an array of Planification objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+     * @return int Returns nbr of array of Planification objects
+     */
+
+    public function findNbrToDay()
+    {
+        $date = new DateTime('00:00:00');
+        $query = $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->andWhere('p.date = :val')
+            ->setParameter('val', $date)
+            ;
+
+        $query = $query->getQuery();
+        return $query->getSingleScalarResult();
+    }
+
+    /**
+     * @return int Returns nbr of array of Planification objects
+     */
+
+    public function findNbrSupToDay()
+    {
+        $date = new DateTime('00:00:00');
+        $query = $this->createQueryBuilder('p')
+            ->select('count(p.id)')
+            ->andWhere('p.date > :val')
+            ->setParameter('val', $date)
+            ;
+
+        $query = $query->getQuery();
+        return $query->getSingleScalarResult();
+    }
+    /**
+     * @return Planification[] Returns an array of Planification objects
+    */
+    
+    public function findLastTen()
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
+            ->orderBy('p.id', 'DESC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Planification
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
