@@ -85,7 +85,6 @@ $(function() {
                 if(event._id.indexOf("pl") > -1){
                 array_event_delete[event._id] = {'id' : event._id, 'titre' : event.title, 'date' : date_format};
                 }
-                console.log(array_event_delete);
 
             }
         },

@@ -118,7 +118,6 @@ class HomeController extends AbstractController
                 $planification->setLivreur($livreur);
                 $planification->setMoto($moto);
                 $planification->setDate($dateTime);
-                dump($planification);
                 $this->em->persist($planification);
                 $this->em->flush();
                 unset($adresse_add[$id_adresse]);
@@ -132,7 +131,6 @@ class HomeController extends AbstractController
         //delete events 
         foreach ($list_delete as $value) {
             $id_delete = intval(explode('_', $value['id'])[2]);
-            dump($id_delete);
             $planification = $this->planificationRepository->find($id_delete);
             if ($planification){
                 $this->em->remove($planification);
